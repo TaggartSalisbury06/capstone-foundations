@@ -1,9 +1,8 @@
-
 let movieNameRef = document.getElementById("movie-name");
 let searchBtn = document.getElementById("search-btn");
 let result = document.getElementById("result");
 let watchListBtn = document.getElementById('add-to-watch')
-const watchList = []
+let goToWatchListBtn = document.getElementById('go-to-watch')
 const key = "b5c615ed"
 
 let getMovie = () => {
@@ -59,10 +58,22 @@ function pageLoad() {
 
 function addToWatchList() {
   let movieName = movieNameRef.value;
-  let data = { name: movieName };
-  axios.post("/watchlist", data)
+  let url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
+  
+  axios.get(url)
     .then((response) => {
-      console.log(response.data);
+      const data = response.data;
+      if (data.Response == 'True') {
+        axios.post('/watchlist', {
+          title: data.Title,
+          imdbRating: data.imdbRating,
+          poster: data.Poster
+        }).then((response) => {
+          console.log(response.data);
+        }).catch((error) => {
+          console.log(error);
+        });
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -71,6 +82,32 @@ function addToWatchList() {
 
 
 
+
+function addToWatchList() {
+    let movieName = movieNameRef.value;
+    let url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
+    axios.get(url)
+      .then(response => {
+        const data = response.data;
+        if (data.Response == "True") {
+          axios.post('/watchlist', data)
+            .then(response => {
+              console.log(response.data);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+}
+
+
+
+
 searchBtn.addEventListener("click", getMovie);
 window.addEventListener("load", getMovie);
 watchListBtn.addEventListener("click", addToWatchList);
+

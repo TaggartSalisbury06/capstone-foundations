@@ -1,27 +1,29 @@
 const express = require("express")
 const cors = require("cors")
+const bodyParser = require('body-parser');
+const watchList = require('./db.json')
 
 const app = express()
 
+app.use(bodyParser.json());
 app.use(express.json())
 app.use(express.static(__dirname + '../../public'))
 
-const key = "b5c615ed"
-
-app.get('/', (req, res) => {
+app.get('/movie/:name', (req, res) => {
   const movieName = req.params.name;
+  // Your movie search logic here
+  // Call the function that searches for the movie with the given name
+  // Return the result as a JSON response
 });
-app.post("/watchlist", (req, res) => {
-  const movieName = req.body.name;
-  const url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
-  axios.get(url).then((response) => {
-    const movieData = response.data;
-    watchList.push(movieData);
-    res.status(201).send("Movie added to watch list");
-  }).catch((error) => {
-    console.log(error);
-    res.status(500).send("Error adding movie to watch list");
-  })
+
+app.post('/watchlist', (req, res) => {
+  const movie = req.body;
+  watchList.push(movie);
+  res.json(watchList);
+});
+
+app.get('/watchlist', (req, res) => {
+  res.json(watchList)
 })
 
 
