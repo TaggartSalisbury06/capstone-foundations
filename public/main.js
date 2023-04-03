@@ -56,31 +56,6 @@ function pageLoad() {
   result.innerHTML = `<h3 class="msg">Please Enter A Movie Name</h3>`;
 }
 
-function addToWatchList() {
-  let movieName = movieNameRef.value;
-  let url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
-  
-  axios.get(url)
-    .then((response) => {
-      const data = response.data;
-      if (data.Response == 'True') {
-        axios.post('/watchlist', {
-          title: data.Title,
-          imdbRating: data.imdbRating,
-          poster: data.Poster
-        }).then((response) => {
-          console.log(response.data);
-        }).catch((error) => {
-          console.log(error);
-        });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-
 
 
 function addToWatchList() {
