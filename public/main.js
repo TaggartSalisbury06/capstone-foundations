@@ -65,13 +65,24 @@ function addToWatchList() {
       .then(response => {
         const data = response.data;
         if (data.Response == "True") {
-          axios.post('/watchlist', data)
+          axios.get('/watchlist')
             .then(response => {
-              console.log(response.data);
+              let watchlist = response.data
+              let existingMovie = watchlist.find(movie => movie.imbdID === data.imbdID)
+              if(existingMovie){
+                alert(`${movieName} is already on your watchlist`)
+              } else {
+                axios.post('/watchlist', data)
+                 .then(response => {
+                  alert(`${movieName} add to watchlist`)
+                  console.log(response.data)
+                 })
+                 .catch(error => console.log(error))
+              }
             })
-            .catch(error => {
-              console.log(error);
-            });
+            .catch(error => console.log(error))
+        } else {
+          alert(`Sorry, ${movieName} was not found`)
         }
       })
       .catch(error => {
@@ -85,4 +96,3 @@ function addToWatchList() {
 searchBtn.addEventListener("click", getMovie);
 window.addEventListener("load", getMovie);
 watchListBtn.addEventListener("click", addToWatchList);
-

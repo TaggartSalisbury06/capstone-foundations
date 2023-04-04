@@ -11,9 +11,6 @@ app.use(express.static(__dirname + '../../public'))
 
 app.get('/movie/:name', (req, res) => {
   const movieName = req.params.name;
-  // Your movie search logic here
-  // Call the function that searches for the movie with the given name
-  // Return the result as a JSON response
 });
 
 app.post('/watchlist', (req, res) => {
@@ -25,6 +22,18 @@ app.post('/watchlist', (req, res) => {
 app.get('/watchlist', (req, res) => {
   res.json(watchList)
 })
+
+
+app.delete('/watchlist/:movieId', (req, res) => {
+  const movieId = req.params.movieId;
+  const index = watchList.findIndex(movie => movie.imdbID === movieId);
+  if (index !== -1) {
+    watchList.splice(index, 1);
+    res.json(watchList);
+  } else {
+    res.status(404).send('Movie not found on watchlist');
+  }
+});
 
 
 app.listen(4000, () => console.log("up on 4000"))

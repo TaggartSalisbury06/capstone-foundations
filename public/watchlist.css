@@ -12,7 +12,7 @@ body {
   background: radial-gradient(circle, rgba(0,0,0,1) 19%, hsl(0, 100%, 50%) 100%);
 }
 .container {
-  margin-top: 3%;
+  margin-top: 5%;
   padding-top: 20px;
   padding-bottom: 20px;
   min-height: 3.6em;
@@ -22,7 +22,7 @@ body {
   max-width: 37.5em;
   padding: 3em 1.8em;
   background-color: #201f28;
-  margin-left: 30%;
+  margin-left:35%;
   /* position: relative;
   transform: translate(-50%, -50%); */
   top: 50%;
