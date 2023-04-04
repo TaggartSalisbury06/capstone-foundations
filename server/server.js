@@ -11,9 +11,6 @@ app.use(express.static(__dirname + '../../public'))
 
 app.get('/movie/:name', (req, res) => {
   const movieName = req.params.name;
-  // Your movie search logic here
-  // Call the function that searches for the movie with the given name
-  // Return the result as a JSON response
 });
 
 app.post('/watchlist', (req, res) => {
