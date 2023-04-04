@@ -7,6 +7,7 @@ let displayWatchList = () => {
       watchList = response.data;
       let watchListContainer = document.getElementById('watchlist-container');
       let watchListHtml = '';
+      console.log(watchList)
       watchList.forEach(movie => {
         watchListHtml += `
           <div class="info">

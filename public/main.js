@@ -68,7 +68,7 @@ function addToWatchList() {
           axios.get('/watchlist')
             .then(response => {
               let watchlist = response.data
-              let existingMovie = watchlist.find(movie => movie.imbdID === data.imbdID)
+              let existingMovie = watchlist.find(movie => movie.imdbID === data.imdbID)
               if(existingMovie){
                 alert(`${movieName} is already on your watchlist`)
               } else {
