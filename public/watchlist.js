@@ -1,4 +1,3 @@
-
 const key = "b5c615ed"
 
 let displayWatchList = () => {
@@ -52,13 +51,12 @@ let displayWatchList = () => {
 };
 
 
-let removeFromWatchList = (movieId) => {
-  axios.delete(`/watchlist/${movieId}`)
+let removeFromWatchList = (movieID) => {
+  axios.delete(`/watchlist/${movieID}`)
     .then(response => {
+      watchList = response.data
       alert(`Movie removed from watchlist`)
       console.log(response.data);
-      let movieElement = document.getElementById(`movie-${movieId}`);
-      movieElement.parentNode.removeChild(movieElement);
     })
     .catch(error => {
       console.log(error);
